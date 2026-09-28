@@ -981,11 +981,13 @@ std::optional<Tensor<float>> GGMLRunner::execute_graph(ggml_cgraph* graph, int n
         if (!prefetch_requests.empty()) {
             weights.enqueue_next(index, prefetch_requests.front());
         }
-        LOG_DEBUG("%s executing segment %zu/%zu: %s", get_desc().c_str(),
+        LOG_INFO("%s: starting segment %zu/%zu: %s", get_desc().c_str(),
                   index + 1, plan.segments.size(), segment.group_name.c_str());
         if (!execute_segment(segment_graph, n_threads)) {
             return fail_segment("execution");
         }
+        LOG_INFO("%s: segment %zu/%zu completed", get_desc().c_str(),
+                  index + 1, plan.segments.size());
         auto cache_status = cache_.capture(segment_graph);
         if (cache_status == GGML_STATUS_SUCCESS) {
             cache_status = cut_cache_.capture(graph, segment, get_desc().c_str());
