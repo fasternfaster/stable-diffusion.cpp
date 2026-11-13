@@ -1,6 +1,7 @@
 [submodule "ggml"]
     path = ggml
-	url = https://github.com/leejet/ggml.git
+	url = https://github.com/fasternfaster/ggml.git
+	branch = bindx/vulkan-qualcomm-android
 [submodule "examples/server/frontend"]
 	path = examples/server/frontend
 	url = https://github.com/leejet/sdcpp-webui.git
